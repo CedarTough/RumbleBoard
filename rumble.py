@@ -6,7 +6,7 @@ if sys.version_info[0] > 2:
     print("This game runs on python 2 only")
 
 
-from chesslib import board
+from RumbleLib import board
 
 # Load a save if it exists
 
@@ -19,7 +19,7 @@ else:
 # Choose display method
 if len(sys.argv) > 1:
     if sys.argv[1] in ('--console', '-c'):
-        from chesslib.gui_console import display
+        from RumbleLib.gui_console import display
         display(game)
         exit(0)
     elif sys.argv[1] in ('--help', '-h'):
@@ -27,8 +27,8 @@ if len(sys.argv) > 1:
         exit(0)
 
 try:
-    from chesslib.gui_tkinter import display
+    from RumbleLib.gui_tkinter import display
 except ImportError:
-    from chesslib.gui_console import display
+    from RumbleLib.gui_console import display
 finally:
     display(game)
