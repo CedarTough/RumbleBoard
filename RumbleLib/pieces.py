@@ -1,7 +1,7 @@
 import pieces
 import sys
 
-ABBREVIATIONS = {
+SYMBOLS = {
  'O':'Ozzy',
  'B':'BeeSwarm',
  'K':'CapeKid'
@@ -10,42 +10,38 @@ ABBREVIATIONS = {
 class InvalidPiece(Exception): pass
 class InvalidColor(Exception): pass
 
-def piece(piece, color='white'):
-    ''' Takes a piece name or abbreviation and returns the corresponding piece instance '''
-    if piece in (None, ' '): return
-    if len(piece) == 1:
-        # We have an abbreviation
-        if piece.isupper(): color = 'white'
-        else: color = 'black'
-        piece = abbreviations[piece.upper()]
-    module = sys.modules[__name__]
-    return module.__dict__[piece](color)
+def piece(symbol):
+    """ Takes a piece symbol and returns the corresponding piece instance """
+    if symbol in (None, ' '): return
+    if symbol.isupper(): self.color = 'white'
+    else: self.color = 'black'
+    piece = SYMBOLS[symbol.upper()]
+    return
 
 class Piece(object):
-    __slots__ = ('abbreviation', 'color')
+    __slots__ = ('name', 'color')
+    position = None
 
     def __init__(self, color):
         if color == 'white':
-            self.abbreviation = self.abbreviation.upper()
-        elif color == 'black':
-            self.abbreviation = self.abbreviation.lower()
-
-        try:
+            self.symbol = self.symbol.upper()
             self.color = color
-        except KeyError:
+        elif color == 'black':
+            self.symbol = self.symbol.lower()
+            self.color = color
+        else:
             raise InvalidColor
 
     @property
     def name(self): return self.__class__.__name__
-    def place(self, board):
-        ''' Keep a reference to the board '''
+    def place(self, board, position):
+        """ Keep a reference to the board and position """
         self.board = board
+        self.position = position
 
-    def possible_moves(self, position, orthogonal, diagonal, distance):
+    def possible_moves(self, position, range):
         board = self.board
         legal_moves = []
-        orth  = ((-1,0),(0,-1),(0,1),(1,0))
-        diag  = ((-1,-1),(-1,1),(1,-1),(1,1))
         piece = self
 
         from_ = board.number_notation(position)
