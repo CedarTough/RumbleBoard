@@ -1,4 +1,3 @@
-import pieces
 import sys
 
 SYMBOLS = {
@@ -7,7 +6,7 @@ SYMBOLS = {
  'K':'CapeKid'
 }
 
-class InvalidPiece(Exception): pass
+class InvalidSymbol(Exception): pass
 class InvalidColor(Exception): pass
 
 def piece(symbol):
@@ -19,10 +18,14 @@ def piece(symbol):
     return
 
 class Piece(object):
-    __slots__ = ('name', 'color')
+    __slots__ = ('symbol', 'color')
     position = None
 
-    def __init__(self, color):
+    def __init__(self, symbol,color):
+        if symbol in SYMBOLS.keys:
+            self.symbol = symbol
+        else:
+            raise InvalidSymbol 
         if color == 'white':
             self.symbol = self.symbol.upper()
             self.color = color
@@ -39,120 +42,55 @@ class Piece(object):
         self.board = board
         self.position = position
 
-    def possible_moves(self, position, range):
+    def possible_moves(self):
         board = self.board
-        legal_moves = []
-        piece = self
+        boardPosition = self.boardPosition
+        board_dist = [[1000 for _ in range(board.lenY)] for _ in range(board.lenX)]
+        board_mark = [[-1 for _ in range(board.lenY)] for _ in range(board.lenX)]
+        posX = self.position["x"]
+        posY = self.position["y"]
+        board_mark[posX][posY] = 0
+        board_dist[posX][posY] = 0
 
-        from_ = board.number_notation(position)
-        if orthogonal and diagonal:
-            directions = diag+orth
-        elif diagonal:
-            directions = diag
-        elif orthogonal:
-            directions = orth
-
-        for x,y in directions:
-            collision = False
-            for step in range(1, distance+1):
-                if collision: break
-                dest = from_[0]+step*x, from_[1]+step*y
-                if self.board.letter_notation(dest) not in board.occupied('white') + board.occupied('black'):
-                    legal_moves.append(dest)
-                elif self.board.letter_notation(dest) in board.occupied(piece.color):
-                    collision = True
-                else:
-                    legal_moves.append(dest)
-                    collision = True
-
-        legal_moves = filter(board.is_in_bounds, legal_moves)
-        return map(board.letter_notation, legal_moves)
+        done = 0
+        while not(done):
+          done = 1
+          for x in range(board.lenX):
+            for y in range(board.lenY):
+               if (board_mark[x][y] == 0):
+                 board_mark[x][y] = - 1
+                 if ((x-1>=0) and (board_dist[x-1][y]>board_dist[x][y]+1) and (board_dist[x-1][y]==0)):
+                   board_dist[x-1][y] = board_dist[x][y]+1
+                   board_mark[x-1][y] = 0
+                   done = 0
+                 if ((x+1<board.lenX) and (board_dist[x+1][y]>board_dist[x][y]+1)and (board_dist[x+1][y]==0)):
+                   board_dist[x+1][y] = board_dist[x][y]+1
+                   board_mark[x+1][y] = 0
+                   done = 0
+                 if ((y-1>=0) and (board_dist[x][y-1]>board_dist[x][y]+1)and (board_dist[x][y-1]==0)):
+                   board_dist[x][y-1] = board_dist[x][y]+1
+                   board_mark[x][y-1] = 0
+                   done = 0
+                 if ((y+1<board.lenY) and (board_dist[x][y+1]>board_dist[x][y]+1)and (board_dist[x][y+1]==0)):
+                   board_dist[x][y+1] = board_dist[x][y]+1
+                   board_mark[x][y+1] = 0
+                   done = 0
+        return map(board_dist)
 
     def __str__(self):
-        return self.abbreviation
+        return self.symbol.lower()
 
     def __repr__(self):
         return "<" + self.color.capitalize() + " " + self.__class__.__name__ + ">"
 
-class Pawn(Piece):
-    abbreviation = 'p'
-    def possible_moves(self, position):
-        board = self.board
-        position = position.upper()
-        piece = self
-        if self.color == 'white':
-            homerow, direction, enemy = 1, 1, 'black'
-        else:
-            homerow, direction, enemy = 6, -1, 'white'
+class Ozzy(Piece):
+    symbol = 'O'
+    range = 5
 
-        legal_moves = []
+class BeeSwarm(Piece):
+    symbol = 'B'
+    range = 3
 
-        # Moving
-
-        blocked = board.occupied('white') + board.occupied('black')
-        from_   = board.number_notation(position)
-        forward = from_[0] + direction, from_[1]
-
-        # Can we move forward?
-        if board.letter_notation(forward) not in blocked:
-            legal_moves.append(forward)
-            if from_[0] == homerow:
-                # If pawn in starting position we can do a double move
-                double_forward = (forward[0] + direction, forward[1])
-                if board.letter_notation(double_forward) not in blocked:
-                    legal_moves.append(double_forward)
-
-        # Attacking
-        for a in range(-1, 2, 2):
-            attack = from_[0] + direction, from_[1] + a
-            if board.letter_notation(attack) in board.occupied(enemy):
-                legal_moves.append(attack)
-
-        # TODO: En passant
-        legal_moves = filter(board.is_in_bounds, legal_moves)
-        return map(board.letter_notation, legal_moves)
-
-
-class Knight(Piece):
-    abbreviation = 'n'
-    def possible_moves(self,position):
-        board = self.board
-        position = position.upper()
-        legal_moves = []
-        from_ = board.number_notation(position)
-        piece = board.get(position)
-        deltas = ((-2,-1),(-2,1),(-1,-2),(-1,2),(1,-2),(1,2),(2,-1),(2,1))
-
-        for x,y in deltas:
-            dest = from_[0]+x, from_[1]+y
-            if(board.letter_notation(dest) not in board.occupied(piece.color)):
-                legal_moves.append(dest)
-
-        legal_moves = filter(board.is_in_bounds, legal_moves)
-        return map(board.letter_notation, legal_moves)
-
-
-class Rook(Piece):
-    abbreviation = 'r'
-    def possible_moves(self,position):
-        position = position.upper()
-        return super(Rook, self).possible_moves(position, True, False, 8)
-
-class Bishop(Piece):
-    abbreviation = 'b'
-    def possible_moves(self,position):
-        position = position.upper()
-        return super(Bishop,self).possible_moves(position, False, True, 8)
-
-class Queen(Piece):
-    abbreviation = 'q'
-    def possible_moves(self,position):
-        position = position.upper()
-        return super(Queen, self).possible_moves(position, True, True, 8)
-
-class King(Piece):
-    abbreviation = 'k'
-    move_length = 1
-    def possible_moves(self,position):
-        position = position.upper()
-        return super(King, self).possible_moves(position, True, True, 1)
+class CapeKid(Piece):
+    symbol = 'C'
+    range = 2

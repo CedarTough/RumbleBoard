@@ -8,14 +8,10 @@ if sys.version_info[0] > 3:
 
 from RumbleLib import board
 
-# Load a save if it exists
+# initialize
+game = board.Board()
 
-if os.path.exists("state.fen"):
-    with open("state.fen") as save:
-        game = board.Board(save.read())
-else:
-    game = board.Board()
-
+"""
 # Choose display method
 if len(sys.argv) > 1:
     if sys.argv[1] in ('--console', '-c'):
@@ -32,3 +28,4 @@ except ImportError:
     from RumbleLib.gui_console import display
 finally:
     display(game)
+"""
