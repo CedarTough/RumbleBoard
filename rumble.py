@@ -7,25 +7,38 @@ if sys.version_info[0] > 3:
 
 
 from RumbleLib import board
+from RumbleLib import pieces
 
 # initialize
 game = board.Board()
 
-"""
-# Choose display method
-if len(sys.argv) > 1:
-    if sys.argv[1] in ('--console', '-c'):
-        from RumbleLib.gui_console import display
-        display(game)
-        exit(0)
-    elif sys.argv[1] in ('--help', '-h'):
-        print ('''Usage: game.py [OPTION]\n\n\tPlay a game of chess\n\n\tOptions:\n\t -c, --console\tplay in console mode\n\n''')
-        exit(0)
 
-try:
-    from RumbleLib.gui_tkinter import display
-except ImportError:
-    from RumbleLib.gui_console import display
-finally:
-    display(game)
-"""
+OzzyP = pieces.Piece('O',"white",6)
+OzzyP.setPosition(3,4)
+game.placePiece(OzzyP.symbol,OzzyP.posX,OzzyP.posY)
+print(game.BoardPosition[3][4])
+
+BeeSwarmP = pieces.Piece('B',"black",5)
+BeeSwarmP.setPosition(3,6)
+game.placePiece(BeeSwarmP.symbol,BeeSwarmP.posX,BeeSwarmP.posY)
+print(game.BoardPosition[3][6])
+
+CapeKidP = pieces.Piece('K',"white",2)
+CapeKidP.setPosition(0,0)
+game.placePiece(CapeKidP.symbol,CapeKidP.posX,CapeKidP.posY)
+print(game.BoardPosition[0][0])
+
+for j in range(game.lenY-1,-1,-1):
+    strl = ""
+    for i in range(game.lenX):
+        strl += str(game.BoardPosition[i][j]) + " "
+    print (strl)
+
+print("\n")
+
+distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY)
+for j in range(game.lenY-1,-1,-1):
+    strl = ""
+    for i in range(game.lenX):
+        strl += str(distArray[i][j]) + " "
+    print (strl)
