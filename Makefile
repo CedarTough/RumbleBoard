@@ -4,7 +4,7 @@ install:
         python -m textblob.download_corpora
 
 test:
-	python -m pytest -vv --cov=main --cov=calCLI --cov=mylib test_*.py
+	python -m pytest -vv RumbleTest/test_*.py
 
 format:	
 	black *.py mylib/*.py

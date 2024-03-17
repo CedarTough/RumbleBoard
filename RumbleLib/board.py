@@ -10,7 +10,7 @@ from RumbleLib import pieces
 #class NotYourTurn(ChessError): pass
 
 
-class Board(dict):
+class Board():
     """
        Board
        A simple RumbleBoard class
@@ -27,14 +27,14 @@ class Board(dict):
     halfmove_clock = 0
     fullmove_number = 1
     history = []
-    InitialBoardPosition
-    BoardPosition
+    InitialBoardPosition = None
+    BoardPosition = None
     
     # Create a 2D array with 3 rows and 4 columns
    
-    def __init__(fen = None):
-        InitialBoardPosition = [[0 for _ in range(self.lenY)] for _ in range(self.lenX)]
+    def __init__(self, fen = None):
+        self.InitialBoardPosition = [[0 for _ in range(self.lenY)] for _ in range(self.lenX)]
         if fen is None: 
-            BoardPosition = InitialBoardPosition
+            self.BoardPosition = self.InitialBoardPosition
         else: 
-            BoardPosition = fen
+            self.BoardPosition = fen
