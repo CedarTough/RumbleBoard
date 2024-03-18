@@ -36,9 +36,19 @@ for j in range(game.lenY-1,-1,-1):
 
 print("\n")
 
-distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY)
+#distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY)
+distArray = game.determine_movement_dist(OzzyP.posX, OzzyP.posY)
 for j in range(game.lenY-1,-1,-1):
     strl = ""
     for i in range(game.lenX):
-        strl += str(distArray[i][j]) + " "
+        strl += str("%1.2f" % distArray[i][j]) + " "
+    print (strl)
+
+print("\n")
+
+distArray = game.determine_attack_dist(OzzyP.posX, OzzyP.posY)
+for j in range(game.lenY-1,-1,-1):
+    strl = ""
+    for i in range(game.lenX):
+        strl += str("%1.2f" % distArray[i][j]) + " "
     print (strl)
