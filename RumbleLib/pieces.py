@@ -1,36 +1,34 @@
-import sys
-
 SYMBOLS = {
- 'B':'BeeSwarm',
- 'C':'ChocolatePrince',
- 'CB':'CabbageMoth',
- 'CH':'ChubChub',
- 'D':'Detective',
- 'F':'DrFertilizer',
- 'G':'GingerbreadMan',
- 'GM':'GMachina',
- 'K':'CapeKid',
- 'L':'LostPrincess',
- 'LC':'LittleCake',
- 'M':'Magician',
- 'MD':'MarshmallowDuck',
- 'N':'Ninja',
- 'O':'Ozzy',
- 'P':'Pterodactyle',
- 'S':'SugarAddict',
- 'T':'Tarantula',
- 'V':'VolleyballLongshot',
- 'W':'WildPlant'
-}
+    # symbol: name, movement_range,attack_range, attack_dammage, hit_points
+ 'B':['BeeSwarm', 6, 1, 1, 30],
+ 'C':['ChocolatePrince',6, 1, 1, 30],
+ 'CB':['CabbageMoth',6, 1, 1, 30],
+ 'CH':['ChubChub',6, 1, 1, 30],
+ 'D':['Detective',6, 1, 1, 30],
+ 'F':['DrFertilizer',6, 1, 1, 30],
+ 'G':['GingerbreadMan',6, 1, 1, 30],
+ 'GM':['GMachina',6, 1, 1, 30],
+ 'K':['CapeKid',6, 1, 1, 30],
+ 'L':['LostPrincess',6, 1, 1, 30],
+ 'LC':['LittleCake',6, 1, 1, 30],
+ 'M':['Magician',6, 1, 1, 30],
+ 'MD':['MarshmallowDuck',6, 1, 1, 30],
+ 'N':['Ninja',6, 1, 1, 30],
+ 'O':['Ozzy',6, 1, 1, 30],
+ 'P':['Pterodactyle',6, 1, 1, 30],
+ 'S':['SugarAddict',6, 1, 1, 30],
+ 'T':['Tarantula',6, 1, 1, 30],
+ 'V':['VolleyballLongshot',6, 1, 1, 30],
+ 'W':['WildPlant',6, 1, 1, 30]
+ }
 
 class InvalidSymbol(Exception): pass
 class InvalidColor(Exception): pass
 
 class Piece(object):
     __slots__ = ('symbol', 'color','movement_range','attack_range', 'attack_dammage', 'hit_points', 'posX','posY')
-    position = None
 
-    def __init__(self, symbol,color, movement_range, attack_range, attack_dammage, hit_points):
+    def __init__(self, symbol,color,movement_range,attack_range, attack_dammage, hit_points):
         if symbol.upper() in SYMBOLS.keys():
             self.symbol = symbol
         else:
@@ -43,10 +41,11 @@ class Piece(object):
             self.color = color
         else:
             raise InvalidColor
-        self.movement_range = movement_range
-        self.attack_range = attack_range
-        self.attack_dammage = attack_dammage
-        self.hit_points = hit_points
+        toto = SYMBOLS[symbol.upper]
+        self.movement_range = toto[1]
+        self.attack_range = toto[2]
+        self.attack_dammage = toto[3]
+        self.hit_points = toto[4]
 
 
     @property

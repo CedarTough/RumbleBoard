@@ -9,6 +9,20 @@ if sys.version_info[0] > 3:
 from RumbleLib import board
 from RumbleLib import pieces
 
+def printBoardPosition(boardPosition,lenX,lenY):
+  for j in range(lenY-1,-1,-1):
+    strl = ""
+    for i in range(lenX):
+        strl += str("%2s" % game.BoardPosition[i][j]) + " "
+    print (strl)
+
+def printBoardDist(distArray,lenX,lenY):
+  for j in range(lenY-1,-1,-1):
+    strl = ""
+    for i in range(lenX):
+        strl += str("%1.2f" % distArray[i][j]) + " "
+    print (strl)
+
 # initialize
 game = board.Board()
 
@@ -27,13 +41,7 @@ CapeKidP = pieces.Piece('K',"white",2,2,5,30)
 CapeKidP.setPosition(0,0)
 game.placePiece(CapeKidP.symbol,CapeKidP.posX,CapeKidP.posY)
 print(game.BoardPosition[0][0])
-
-for j in range(game.lenY-1,-1,-1):
-    strl = ""
-    for i in range(game.lenX):
-        strl += str(game.BoardPosition[i][j]) + " "
-    print (strl)
-
+printBoardPosition(game.BoardPosition,game.lenX,game.lenY)
 print("\n")
 
 #pieceX = OzzyP
@@ -44,17 +52,9 @@ print('Bee Swarm', pieceX.posX, pieceX.posY, pieceX.movement_range, pieceX.attac
 
 #distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY, CapeKid.movement_range)
 distArray = game.determine_movement_dist(pieceX.posX, pieceX.posY, pieceX.movement_range)
-for j in range(game.lenY-1,-1,-1):
-    strl = ""
-    for i in range(game.lenX):
-        strl += str("%1.2f" % distArray[i][j]) + " "
-    print (strl)
+printBoardDist(distArray,game.lenX,game.lenY)
 
-print("\n")
+print('\n')
 
 distArray = game.determine_attack_dist(pieceX.posX, pieceX.posY, pieceX.attack_range)
-for j in range(game.lenY-1,-1,-1):
-    strl = ""
-    for i in range(game.lenX):
-        strl += str("%1.2f" % distArray[i][j]) + " "
-    print (strl)
+printBoardDist(distArray,game.lenX,game.lenY)

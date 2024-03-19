@@ -1,14 +1,3 @@
-from RumbleLib import pieces
-
-#class ChessError(Exception): pass
-#class InvalidCoord(ChessError): pass
-#class InvalidColor(ChessError): pass
-#class InvalidMove(ChessError): pass
-#class Check(ChessError): pass
-#class CheckMate(ChessError): pass
-#class Draw(ChessError): pass
-#class NotYourTurn(ChessError): pass
-
 
 class Board():
     """
