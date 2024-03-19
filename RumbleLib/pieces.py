@@ -1,34 +1,34 @@
 SYMBOLS = {
-    # symbol: name, movement_range,attack_range, attack_dammage, hit_points
- 'B':['BeeSwarm', 6, 1, 1, 30],
- 'C':['ChocolatePrince',6, 1, 1, 30],
- 'CB':['CabbageMoth',6, 1, 1, 30],
- 'CH':['ChubChub',6, 1, 1, 30],
- 'D':['Detective',6, 1, 1, 30],
- 'F':['DrFertilizer',6, 1, 1, 30],
- 'G':['GingerbreadMan',6, 1, 1, 30],
- 'GM':['GMachina',6, 1, 1, 30],
- 'K':['CapeKid',6, 1, 1, 30],
- 'L':['LostPrincess',6, 1, 1, 30],
- 'LC':['LittleCake',6, 1, 1, 30],
- 'M':['Magician',6, 1, 1, 30],
- 'MD':['MarshmallowDuck',6, 1, 1, 30],
- 'N':['Ninja',6, 1, 1, 30],
- 'O':['Ozzy',6, 1, 1, 30],
- 'P':['Pterodactyle',6, 1, 1, 30],
- 'S':['SugarAddict',6, 1, 1, 30],
- 'T':['Tarantula',6, 1, 1, 30],
- 'V':['VolleyballLongshot',6, 1, 1, 30],
- 'W':['WildPlant',6, 1, 1, 30]
+    # symbol: fullname, movement_range,attack_range, attack_dammage, hit_points
+ 'B':['BeeSwarm',           6, 1, 1, 30],
+ 'C':['ChocolatePrince',    2, 2, 2, 25],
+ 'CB':['CabbageMoth',       3, 3, 3, 20],
+ 'CH':['ChubChub',          4, 2, 1, 15],
+ 'D':['Detective',          5, 3, 2, 10],
+ 'F':['DrFertilizer',       6, 2, 3, 15],
+ 'G':['GingerbreadMan',     7, 3, 1, 20],
+ 'GM':['GMachina',          8, 1, 2, 25],
+ 'K':['CapeKid',            9, 2, 3, 30],
+ 'L':['LostPrincess',      10, 3, 1, 25],
+ 'LC':['LittleCake',        1, 1, 2, 20],
+ 'M':['Magician',           2, 2, 3, 15],
+ 'MD':['MarshmallowDuck',   3, 3, 2, 10],
+ 'N':['Ninja',              4, 1, 4, 15],
+ 'O':['Ozzy',               5, 2, 5, 20],
+ 'P':['Pterodactyle',       6, 3, 2, 25],
+ 'S':['SugarAddict',        7, 1, 1, 30],
+ 'T':['Tarantula',          8, 2, 2, 25],
+ 'V':['VolleyballLongshot', 9, 3, 6, 20],
+ 'W':['WildPlant',         10, 1, 4, 15]
  }
 
 class InvalidSymbol(Exception): pass
 class InvalidColor(Exception): pass
 
 class Piece(object):
-    __slots__ = ('symbol', 'color','movement_range','attack_range', 'attack_dammage', 'hit_points', 'posX','posY')
+    __slots__ = ('symbol', 'fullname','color','movement_range','attack_range', 'attack_dammage', 'hit_points', 'posX','posY')
 
-    def __init__(self, symbol,color,movement_range,attack_range, attack_dammage, hit_points):
+    def __init__(self, symbol,color):
         if symbol.upper() in SYMBOLS.keys():
             self.symbol = symbol
         else:
@@ -41,7 +41,8 @@ class Piece(object):
             self.color = color
         else:
             raise InvalidColor
-        toto = SYMBOLS[symbol.upper]
+        toto = SYMBOLS[symbol.upper()]
+        self.fullname = toto[0]
         self.movement_range = toto[1]
         self.attack_range = toto[2]
         self.attack_dammage = toto[3]

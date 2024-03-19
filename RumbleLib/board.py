@@ -1,8 +1,7 @@
 
 class Board():
     """
-       Board
-       A simple RumbleBoard class
+       Royal Rumble Board
        TODO:
     """
 
