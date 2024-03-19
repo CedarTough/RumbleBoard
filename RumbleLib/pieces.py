@@ -1,19 +1,36 @@
 import sys
 
 SYMBOLS = {
- 'O':'Ozzy',
  'B':'BeeSwarm',
- 'K':'CapeKid'
+ 'C':'ChocolatePrince',
+ 'CB':'CabbageMoth',
+ 'CH':'ChubChub',
+ 'D':'Detective',
+ 'F':'DrFertilizer',
+ 'G':'GingerbreadMan',
+ 'GM':'GMachina',
+ 'K':'CapeKid',
+ 'L':'LostPrincess',
+ 'LC':'LittleCake',
+ 'M':'Magician',
+ 'MD':'MarshmallowDuck',
+ 'N':'Ninja',
+ 'O':'Ozzy',
+ 'P':'Pterodactyle',
+ 'S':'SugarAddict',
+ 'T':'Tarantula',
+ 'V':'VolleyballLongshot',
+ 'W':'WildPlant'
 }
 
 class InvalidSymbol(Exception): pass
 class InvalidColor(Exception): pass
 
 class Piece(object):
-    __slots__ = ('symbol', 'color','movement_range','attack_range','posX','posY')
+    __slots__ = ('symbol', 'color','movement_range','attack_range', 'attack_dammage', 'hit_points', 'posX','posY')
     position = None
 
-    def __init__(self, symbol,color, movement_range, attack_range):
+    def __init__(self, symbol,color, movement_range, attack_range, attack_dammage, hit_points):
         if symbol.upper() in SYMBOLS.keys():
             self.symbol = symbol
         else:
@@ -28,6 +45,9 @@ class Piece(object):
             raise InvalidColor
         self.movement_range = movement_range
         self.attack_range = attack_range
+        self.attack_dammage = attack_dammage
+        self.hit_points = hit_points
+
 
     @property
     def name(self): return self.__class__.__name__

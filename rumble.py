@@ -13,17 +13,17 @@ from RumbleLib import pieces
 game = board.Board()
 
 
-OzzyP = pieces.Piece('O',"white",6,2)
+OzzyP = pieces.Piece('O',"white",6,2,2,20)
 OzzyP.setPosition(3,4)
 game.placePiece(OzzyP.symbol,OzzyP.posX,OzzyP.posY)
 print(game.BoardPosition[3][4])
 
-BeeSwarmP = pieces.Piece('B',"black",5,3)
+BeeSwarmP = pieces.Piece('B',"black",5,3,3,25)
 BeeSwarmP.setPosition(3,6)
 game.placePiece(BeeSwarmP.symbol,BeeSwarmP.posX,BeeSwarmP.posY)
 print(game.BoardPosition[3][6])
 
-CapeKidP = pieces.Piece('K',"white",2,2)
+CapeKidP = pieces.Piece('K',"white",2,2,5,30)
 CapeKidP.setPosition(0,0)
 game.placePiece(CapeKidP.symbol,CapeKidP.posX,CapeKidP.posY)
 print(game.BoardPosition[0][0])
