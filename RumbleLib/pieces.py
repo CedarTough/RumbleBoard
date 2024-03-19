@@ -10,10 +10,10 @@ class InvalidSymbol(Exception): pass
 class InvalidColor(Exception): pass
 
 class Piece(object):
-    __slots__ = ('symbol', 'color','range','posX','posY')
+    __slots__ = ('symbol', 'color','movement_range','attack_range','posX','posY')
     position = None
 
-    def __init__(self, symbol,color, range):
+    def __init__(self, symbol,color, movement_range, attack_range):
         if symbol.upper() in SYMBOLS.keys():
             self.symbol = symbol
         else:
@@ -26,7 +26,8 @@ class Piece(object):
             self.color = color
         else:
             raise InvalidColor
-        self.range = range 
+        self.movement_range = movement_range
+        self.attack_range = attack_range
 
     @property
     def name(self): return self.__class__.__name__
@@ -44,12 +45,12 @@ class Piece(object):
 
 class Ozzy(Piece):
     symbol = 'O'
-    range = 5
+
 
 class BeeSwarm(Piece):
     symbol = 'B'
-    range = 3
+
 
 class CapeKid(Piece):
     symbol = 'C'
-    range = 2
+

@@ -13,17 +13,17 @@ from RumbleLib import pieces
 game = board.Board()
 
 
-OzzyP = pieces.Piece('O',"white",6)
+OzzyP = pieces.Piece('O',"white",6,2)
 OzzyP.setPosition(3,4)
 game.placePiece(OzzyP.symbol,OzzyP.posX,OzzyP.posY)
 print(game.BoardPosition[3][4])
 
-BeeSwarmP = pieces.Piece('B',"black",5)
+BeeSwarmP = pieces.Piece('B',"black",5,3)
 BeeSwarmP.setPosition(3,6)
 game.placePiece(BeeSwarmP.symbol,BeeSwarmP.posX,BeeSwarmP.posY)
 print(game.BoardPosition[3][6])
 
-CapeKidP = pieces.Piece('K',"white",2)
+CapeKidP = pieces.Piece('K',"white",2,2)
 CapeKidP.setPosition(0,0)
 game.placePiece(CapeKidP.symbol,CapeKidP.posX,CapeKidP.posY)
 print(game.BoardPosition[0][0])
@@ -36,8 +36,14 @@ for j in range(game.lenY-1,-1,-1):
 
 print("\n")
 
-#distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY)
-distArray = game.determine_movement_dist(OzzyP.posX, OzzyP.posY)
+#pieceX = OzzyP
+#pieceX = CapeKidP
+pieceX = BeeSwarmP
+
+print('Bee Swarm', pieceX.posX, pieceX.posY, pieceX.movement_range, pieceX.attack_range, '\n\n')
+
+#distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY, CapeKid.movement_range)
+distArray = game.determine_movement_dist(pieceX.posX, pieceX.posY, pieceX.movement_range)
 for j in range(game.lenY-1,-1,-1):
     strl = ""
     for i in range(game.lenX):
@@ -46,7 +52,7 @@ for j in range(game.lenY-1,-1,-1):
 
 print("\n")
 
-distArray = game.determine_attack_dist(OzzyP.posX, OzzyP.posY)
+distArray = game.determine_attack_dist(pieceX.posX, pieceX.posY, pieceX.attack_range)
 for j in range(game.lenY-1,-1,-1):
     strl = ""
     for i in range(game.lenX):
