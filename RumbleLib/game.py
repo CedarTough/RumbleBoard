@@ -1,4 +1,3 @@
-
 from RumbleLib import pieces
 from RumbleLib import board
 import random
@@ -20,7 +19,6 @@ class Game():
 
     def setupGame(self):
         self.pickLineUp()
-
    
     def printBoardPosition(self, BoardPosition):
         for j in range(self.lenY-1,-1,-1):
@@ -49,12 +47,13 @@ class Game():
         random.seed()
         toto = self.pieceArrayAllP1
         for i in range (self.numberOfPieces):
-            n = randint(0,self.totalNumberOfPieces-i)
-                pieceArrayP1 = toto.pop(n)
+            n = randint(0,len(toto))
+                pieceArrayP1[i] = toto.pop(n)
         toto = self.pieceArrayAllP2
         for i in range (self.numberOfPieces):
-            n = randint(0,self.totalNumberOfPieces-i)
-                pieceArrayP2 = toto.pop(n)
+            n = randint(0,len(toto))
+                pieceArrayP2[i] = toto.pop(n)
 
     def makeMove(self):
        pass
+    

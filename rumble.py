@@ -31,17 +31,19 @@ board = board.Board(5,8)
 #pieceX = CapeKidP
 pieceX = pieces.Piece('B','white')
 pieceX.setPosition(3,4)
+board.printBoardPosition()
 
-print(pieceX.fullname, "Pos:(",pieceX.posX, ',',pieceX.posY, ') \tMoveRange:',pieceX.movement_range, '\tAttackRange:', pieceX.attack_range, '\tAttackDammage:', pieceX.attack_dammage, '\tHP:',pieceX.hit_points,'\n\n')
+#print(pieceX.fullname, "Pos:(",pieceX.posX, ',',pieceX.posY, ') \tMoveRange:',pieceX.movement_range, '\tAttackRange:', pieceX.attack_range, '\tAttackDammage:', pieceX.attack_dammage, '\tHP:',pieceX.hit_points,'\n\n')
+pieceX.printPieceInfo()
 
 #distArray = game.determine_dist(CapeKidP.posX, CapeKidP.posY, CapeKid.movement_range)
 distArray = board.determine_movement_dist(pieceX.posX, pieceX.posY, pieceX.movement_range)
-printBoardDist(distArray,board.lenX,board.lenY)
+board.printBoardDist(distArray)
 
 print('\n')
 
 attackArray = board.determine_attack_dist(pieceX.posX, pieceX.posY, pieceX.attack_range)
-printBoardDist(attackArray,board.lenX,board.lenY)
+board.printBoardDist(attackArray)
 print(pieces.SYMBOLS.keys())
 toto = list(pieces.SYMBOLS.keys())
 print(toto[3])

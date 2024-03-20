@@ -63,6 +63,10 @@ class Piece(object):
     def __repr__(self):
         return "<" + self.color.capitalize() + " " + self.__class__.__name__ + ">"
 
+    def printPieceInfo(self):
+      print(self.fullname, "Pos:(",self.posX, ',',self.posY, ') \tMoveRange:',self.movement_range, '\tAttackRange:', self.attack_range, '\tAttackDammage:', self.attack_dammage, '\tHP:',self.hit_points,'\n\n')
+
+
 class Ozzy(Piece):
     symbol = 'O'
 

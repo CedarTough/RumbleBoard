@@ -115,3 +115,17 @@ class Board():
                    board_mark[x+1][y+1] = 0
                    done = 0 
         return (board_dist)
+
+    def printBoardPosition(self):
+         for j in range(self.lenY-1,-1,-1):
+            strl = ""
+            for i in range(self.lenX):
+                strl += str("%2s" % self.BoardPosition[i][j]) + " "
+            print (strl)
+
+    def printBoardDist(self,distArray):
+        for j in range(self.lenY-1,-1,-1):
+            strl = ""
+            for i in range(self.lenX):
+                strl += str("%1.2f" % distArray[i][j]) + " "
+            print (strl)
