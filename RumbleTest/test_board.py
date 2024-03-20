@@ -23,7 +23,7 @@ def test_determine_movement_dist():
   dist_array = game.determine_movement_dist(game.lenX-1,game.lenY-1, 3)
   assert dist_array[game.lenX-2][game.lenY-1]==1000
   assert dist_array[game.lenX-1][game.lenY-2]==1
-  assert dist_array[game.lenX-2][game.lenY-2]==1.414
+  assert dist_array[game.lenX-2][game.lenY-2]==2 # diagonal movement is disabled
   assert dist_array[0][0]==1000
 
 def test_determine_attack_dist():

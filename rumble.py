@@ -25,13 +25,26 @@ print('\n')
 
 game.pickLineUp()
 print('Player 1 - randomly selected for game')
-for i in range(game.numberOfPieces):
+for i in range(game.numberOfPiecesP1):
   game.pieceArrayP1[i].printPieceInfo()
 print('\n')
 print('Player 2 - randomly selected for game')
-for i in range(game.numberOfPieces):
+for i in range(game.numberOfPiecesP2):
   game.pieceArrayP2[i].printPieceInfo()
 print('\n')
+
+
+print('Player 1 - All pieces')
+for i in range(game.totalNumberOfPieces):
+  game.pieceArrayAllP1[i].printPieceInfo()
+print('\n')
+print('Player 2 - All pieces')
+for i in range(game.totalNumberOfPieces):
+  game.pieceArrayAllP2[i].printPieceInfo()
+print('\n')
+
+game.randomInitialPlacement(3)
+game.board.printBoardPosition()
 
 """
 pieceX.setPosition(3, 4)

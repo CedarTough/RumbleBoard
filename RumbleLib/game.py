@@ -15,7 +15,8 @@ class Game:
         "lenX",
         "lenY",
         "totalNumberOfPieces",
-        "numberOfPieces",
+        "numberOfPiecesP1",
+        "numberOfPiecesP2",
         "pieceArrayAllP1",
         "pieceArrayAllP2",
         "pieceArrayP1",
@@ -26,7 +27,8 @@ class Game:
         self.lenX = boardSize[0]
         self.lenY = boardSize[1]
         self.board = board.Board(self.lenX, self.lenY)
-        self.numberOfPieces = numberOfPieces
+        self.numberOfPiecesP1 = numberOfPieces
+        self.numberOfPiecesP2 = numberOfPieces
         self.pieceArrayAllP1=[]
         self.pieceArrayAllP2=[]
         self.pieceArrayP1=[]
@@ -60,14 +62,40 @@ class Game:
 
     def pickLineUp(self):
         random.seed()
-        toto = self.pieceArrayAllP1
-        for i in range(self.numberOfPieces):
+        toto = list(self.pieceArrayAllP1)
+        for i in range(self.numberOfPiecesP1):
             n = random.randint(0, len(toto)-1)
             self.pieceArrayP1.append(toto.pop(n))
-        toto = self.pieceArrayAllP2
-        for i in range(self.numberOfPieces):
+        toto = list(self.pieceArrayAllP2)
+        for i in range(self.numberOfPiecesP2):
             n = random.randint(0, len(toto)-1)
             self.pieceArrayP2.append(toto.pop(n))
+    
+    def randomInitialPlacement(self,rows:int =3):
+        #place pieces in first 3 rows
+        # Todo: add check if there are enough squares for all the pieces
+        for i in range(self.numberOfPiecesP1):
+            while True:
+                n = random.randint(0, rows*self.lenX -1)
+                PosY = n//self.lenX
+                PosX = n-PosY*self.lenX
+                print(self.pieceArrayP1[i].symbol, 'Px,Py:',PosX,PosY)
+                if self.board.BoardPosition[PosX][PosY] == 0:
+                    break
+            self.pieceArrayP1[i].setPosition(PosX,PosY)
+            self.board.placePiece(self.pieceArrayP1[i].symbol, PosX,PosY)
+
+        for i in range(self.numberOfPiecesP2):
+            while True:
+                n = random.randint(0, rows*self.lenX -1)
+                PosY = n//self.lenX
+                PosX = n-PosY*self.lenX
+                PosY = self.lenY - PosY - 1
+                print(self.pieceArrayP2[i].symbol, 'Px,Py:',PosX,PosY)
+                if self.board.BoardPosition[PosX][PosY] == 0:
+                    break
+            self.pieceArrayP2[i].setPosition(PosX,PosY)
+            self.board.placePiece(self.pieceArrayP2[i].symbol, PosX,PosY)
 
     def makeMove(self):
         pass

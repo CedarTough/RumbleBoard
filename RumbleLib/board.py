@@ -73,6 +73,7 @@ class Board:
                             board_dist[x][y + 1] = board_dist[x][y] + 1
                             board_mark[x][y + 1] = 0
                             done = 0
+                        """ Remove the diagonal movement
                         if (
                             (x - 1 >= 0)
                             and (y - 1 >= 0)
@@ -113,6 +114,7 @@ class Board:
                             board_dist[x + 1][y + 1] = board_dist[x][y] + 1.414
                             board_mark[x + 1][y + 1] = 0
                             done = 0
+                        """
         return board_dist
 
     def determine_attack_dist(self, posX, posY, attack_range):
