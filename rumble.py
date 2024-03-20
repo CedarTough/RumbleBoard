@@ -25,7 +25,7 @@ def printBoardDist(distArray,lenX,lenY):
     print (strl)
 
 # initialize
-board = board.Board()
+board = board.Board(5,8)
 
 #pieceX = OzzyP
 #pieceX = CapeKidP

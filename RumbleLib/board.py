@@ -4,28 +4,16 @@ class Board():
        Royal Rumble Board
        TODO:
     """
-
-    axis_x = ('A', 'B', 'C', 'D', 'E')
-    axis_y = tuple(range(1,9)) # (1,2,3,...8)
-    lenX = len(axis_x)
-    lenY = len(axis_y)
-    
-    #captured_pieces = { 'white': [], 'black': [] }
-    player_turn = None
-    halfmove_clock = 0
-    fullmove_number = 1
-    history = []
     InitialBoardPosition = None
     BoardPosition = None
     
     # Create a 2D array with 3 rows and 4 columns
    
-    def __init__(self, fen = None):
+    def __init__(self, lenX, lenY):
+        self.lenX = lenX
+        self.lenY = lenY
         self.InitialBoardPosition = [[0 for _ in range(self.lenY)] for _ in range(self.lenX)]
-        if fen is None: 
-            self.BoardPosition = self.InitialBoardPosition
-        else: 
-            self.BoardPosition = fen
+        self.BoardPosition = self.InitialBoardPosition
 
     def placePiece(self, symbol, posx, posy):
         self.BoardPosition[posx][posy] = symbol

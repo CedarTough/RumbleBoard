@@ -2,26 +2,22 @@ from RumbleLib import board
 import pytest
 
 def test_board_axis():
-  board1 = board.Board()
-  assert "A" in board1.axis_x
-  assert "E" in board1.axis_x
-  assert 1 in board1.axis_y
-  assert 8 in board1.axis_y
+  board1 = board.Board(5,8)
   assert board1.lenX == 5
   assert board1.lenY == 8
 
 def test_board_initial_position():
-  board1 = board.Board()
+  board1 = board.Board(5,8)
   assert board1.BoardPosition[board1.lenX-1][board1.lenY-1] == 0
   assert board1.InitialBoardPosition[board1.lenX-1][board1.lenY-1] == 0
 
 def test_place_piece():
-  game = board.Board()
+  game = board.Board(5,8)
   game.placePiece('O',game.lenX-1,game.lenY-1)
   assert game.BoardPosition[game.lenX-1][game.lenY-1]
 
 def test_determine_movement_dist():
-  game = board.Board()
+  game = board.Board(5,8)
   game.placePiece('O',game.lenX-1,game.lenY-1)
   game.placePiece('B',game.lenX-2,game.lenY-1)
   dist_array = game.determine_movement_dist(game.lenX-1,game.lenY-1, 3)
@@ -31,7 +27,7 @@ def test_determine_movement_dist():
   assert dist_array[0][0]==1000
 
 def test_determine_attack_dist():
-  game = board.Board()
+  game = board.Board(5,8)
   game.placePiece('O',game.lenX-1,game.lenY-1)
   game.placePiece('B',game.lenX-2,game.lenY-1)
   dist_array = game.determine_attack_dist(game.lenX-1,game.lenY-1, 2)
