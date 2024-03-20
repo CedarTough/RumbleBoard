@@ -23,8 +23,10 @@ class Board:
     def clearPiece(self, symbol, posx, posy):
         if self.BoardPosition[posx][posy] == symbol:
             self.BoardPosition[posx][posy] = 0
+        else:
+            assert(0)
 
-    def determine_movement_dist(self, posX, posY, movement_range):
+    def determine_movement_dist(self, posX, posY):
         board_dist = [[1000 for _ in range(self.lenY)] for _ in range(self.lenX)]
         board_mark = [[-1 for _ in range(self.lenY)] for _ in range(self.lenX)]
         board_mark[posX][posY] = 0
@@ -41,7 +43,6 @@ class Board:
                             (x - 1 >= 0)
                             and (board_dist[x - 1][y] > board_dist[x][y] + 1)
                             and (self.BoardPosition[x - 1][y] == 0)
-                            and (board_dist[x][y] + 1 <= movement_range)
                         ):
                             board_dist[x - 1][y] = board_dist[x][y] + 1
                             board_mark[x - 1][y] = 0
@@ -50,7 +51,6 @@ class Board:
                             (x + 1 < self.lenX)
                             and (board_dist[x + 1][y] > board_dist[x][y] + 1)
                             and (self.BoardPosition[x + 1][y] == 0)
-                            and (board_dist[x][y] + 1 <= movement_range)
                         ):
                             board_dist[x + 1][y] = board_dist[x][y] + 1
                             board_mark[x + 1][y] = 0
@@ -59,7 +59,6 @@ class Board:
                             (y - 1 >= 0)
                             and (board_dist[x][y - 1] > board_dist[x][y] + 1)
                             and (self.BoardPosition[x][y - 1] == 0)
-                            and (board_dist[x][y] + 1 <= movement_range)
                         ):
                             board_dist[x][y - 1] = board_dist[x][y] + 1
                             board_mark[x][y - 1] = 0
@@ -68,7 +67,6 @@ class Board:
                             (y + 1 < self.lenY)
                             and (board_dist[x][y + 1] > board_dist[x][y] + 1)
                             and (self.BoardPosition[x][y + 1] == 0)
-                            and (board_dist[x][y] + 1 <= movement_range)
                         ):
                             board_dist[x][y + 1] = board_dist[x][y] + 1
                             board_mark[x][y + 1] = 0
@@ -79,7 +77,6 @@ class Board:
                             and (y - 1 >= 0)
                             and (board_dist[x - 1][y - 1] > board_dist[x][y] + 1.414)
                             and (self.BoardPosition[x - 1][y - 1] == 0)
-                            and (board_dist[x][y] + 1.414 <= movement_range)
                         ):
                             board_dist[x - 1][y - 1] = board_dist[x][y] + 1.414
                             board_mark[x - 1][y - 1] = 0
@@ -89,7 +86,6 @@ class Board:
                             and (y + 1 < self.lenY)
                             and (board_dist[x - 1][y + 1] > board_dist[x][y] + 1.414)
                             and (self.BoardPosition[x - 1][y + 1] == 0)
-                            and (board_dist[x][y] + 1.414 <= movement_range)
                         ):
                             board_dist[x - 1][y + 1] = board_dist[x][y] + 1.414
                             board_mark[x - 1][y + 1] = 0
@@ -99,7 +95,6 @@ class Board:
                             and (y - 1 >= 0)
                             and (board_dist[x + 1][y - 1] > board_dist[x][y] + 1.414)
                             and (self.BoardPosition[x + 1][y - 1] == 0)
-                            and (board_dist[x][y] + 1.414 <= movement_range)
                         ):
                             board_dist[x + 1][y - 1] = board_dist[x][y] + 1.414
                             board_mark[x + 1][y - 1] = 0
@@ -109,7 +104,6 @@ class Board:
                             and (y + 1 < self.lenY)
                             and (board_dist[x + 1][y + 1] > board_dist[x][y] + 1.414)
                             and (self.BoardPosition[x + 1][y + 1] == 0)
-                            and (board_dist[x][y] + 1.414 <= movement_range)
                         ):
                             board_dist[x + 1][y + 1] = board_dist[x][y] + 1.414
                             board_mark[x + 1][y + 1] = 0
