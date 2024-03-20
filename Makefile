@@ -7,10 +7,10 @@ test:
 	python -m pytest -vv RumbleTest/test_*.py
 
 format:	
-	black *.py mylib/*.py
+	black *.py RumbleLib/*.py
 
 lint:
-	pylint --disable=R,C --extension-pkg-whitelist='pydantic' main.py --ignore-patterns=test_.*?py *.py  mylib/*.py
+	pylint --disable=R,C --extension-pkg-whitelist='pydantic' rumble.py --ignore-patterns=test_.*?py *.py  RumbleLib/*.py
 
 container-lint:
 	docker run --rm -i hadolint/hadolint < Dockerfile
