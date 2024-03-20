@@ -42,6 +42,10 @@ class Piece(object):
         "hit_points",
         "posX",
         "posY",
+        "next_movement_timestamp",
+        "target_square",
+        "attack_target",
+        "movement_per_period"
     )
 
     def __init__(self, symbol, color):
@@ -65,6 +69,9 @@ class Piece(object):
         self.hit_points = toto[4]
         self.posX = -1
         self.posY = -1
+        self.next_movement_timestamp = 0
+        self.attack_target = -1
+        self.target_square = None
 
     @property
     def name(self):
@@ -73,6 +80,27 @@ class Piece(object):
     def setPosition(self, posX, posY):
         self.posX = posX
         self.posY = posY
+
+    def setMoveParameter(self, periods_per_epoch):
+        self.movement_per_period = self.movement_range/periods_per_epoch + 0.0000001
+
+    def setNextMoveTimestamp(self):
+        self.next_movement_timestamp += self.movement_per_period + 0.0000001
+
+    def getNextMoveTimestamp(self) -> float:
+        return(self.next_movement_timestamp)
+
+    def setAttackTarget(self, enemy_piece_number):
+        self.attack_target = enemy_piece_number
+    
+    def getAttackTarget(self)-> int:
+        return(self.attack_target)
+    
+    def setTargetSquare(self, target_square:list = None):
+        self.target_square = target_square
+    
+    def getTargetSquare(self)-> list:
+        return(self.target_square)
 
     def __str__(self):
         return self.symbol.lower()
