@@ -23,7 +23,8 @@ class Game:
         "pieceArrayP2",
         "time",
         "period_duration",
-        "epoch_duration_seconds"
+        "epoch_duration_seconds",
+        "periods_per_epoch"
     )
 
     def __init__(self, boardSize, numberOfPieces):
@@ -45,6 +46,7 @@ class Game:
     def setupTime(self, epoch_duration_seconds, periods_per_epoch):
         self.epoch_duration_seconds = epoch_duration_seconds
         self.period_duration = self.epoch_duration_seconds/periods_per_epoch
+        self.periods_per_epoch = periods_per_epoch
         self.time = 0
         for i in range(self.numberOfPiecesP1):
             self.pieceArrayP1[i].setMoveParameter(periods_per_epoch)
@@ -116,6 +118,7 @@ class Game:
     def makeMove(self,pieceA:pieces.Piece,movePiece:bool=1)-> list:
         # check on time for move
         if (pieceA.getNextMoveTimestamp()>self.time):
+            print('No move for',pieceA.symbol)
             return([])
 
         if (pieceA.color == "white"):
@@ -166,7 +169,7 @@ class Game:
                 #self.board.printBoardDist(distArray)
                 assert (0)
             if movePiece:
-                #print("moving ", pieceA.symbol, " to ", i,j)
+                print("moving ", pieceA.symbol, " to ", i,j)
                 self.board.clearPiece(pieceA.symbol,pieceA.posX,pieceA.posY)
                 self.board.placePiece(pieceA.symbol,i,j)
                 pieceA.setPosition(i,j)
