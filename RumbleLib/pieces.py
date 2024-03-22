@@ -81,8 +81,8 @@ class Piece(object):
         self.posX = posX
         self.posY = posY
 
-    def setMoveParameter(self, periods_per_epoch):
-        self.movement_per_period = self.movement_range/periods_per_epoch + 0.0000001
+    def setMoveParameter(self, epoch_duration,periods_per_epoch):
+        self.movement_per_period = epoch_duration*self.movement_range/periods_per_epoch + 0.0000001
 
     def updateNextMoveTimestamp(self):
         self.next_movement_timestamp += self.movement_per_period + 0.0000001

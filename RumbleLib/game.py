@@ -49,9 +49,9 @@ class Game:
         self.periods_per_epoch = periods_per_epoch
         self.time = 0
         for i in range(self.numberOfPiecesP1):
-            self.pieceArrayP1[i].setMoveParameter(periods_per_epoch)
+            self.pieceArrayP1[i].setMoveParameter(epoch_duration_seconds,periods_per_epoch)
         for i in range(self.numberOfPiecesP2):
-            self.pieceArrayP2[i].setMoveParameter(periods_per_epoch)
+            self.pieceArrayP2[i].setMoveParameter(epoch_duration_seconds,periods_per_epoch)
 
     def advanceTime(self):
         self.time += self.period_duration
@@ -116,6 +116,7 @@ class Game:
             self.board.placePiece(self.pieceArrayP2[i].symbol, PosX,PosY)
 
     def makeMove(self,pieceA:pieces.Piece,movePiece:bool=1)-> list:
+        print("Evaluating", pieceA.symbol, " nextMoveAt", pieceA.getNextMoveTimestamp())
         # check on time for move
         if (pieceA.getNextMoveTimestamp()>self.time):
             print('No move for',pieceA.symbol)
@@ -138,15 +139,15 @@ class Game:
         for k in range(numberEnemyPieces):
             pieceB = enemyPieces[k]
             attackArray = self.board.determine_attack_dist(pieceB.posX, pieceB.posY, pieceA.attack_range)
-            #print("Attack on piece: ", pieceB.symbol)
-            #self.board.printBoardDist(attackArray)
+            print("Attack on piece: ", pieceB.symbol)
+            self.board.printBoardDist(attackArray)
             for i in range(self.lenX):
                for j in range(self.lenY):
                     if (distArray[i][j]<minDistance) and (attackArray[i][j]<1000):
                         minDistance = distArray[i][j]
                         minEnemy = k
                         targetSquare = [i,j]
-            #print('minDistance:',minDistance, ' enemy: ', enemyPieces[minEnemy].symbol,'target:', targetSquare)
+            print('minDistance:',minDistance, ' enemy: ', enemyPieces[minEnemy].symbol,'target:', targetSquare)
         if (minEnemy==-1):
             return([])
         else:
