@@ -46,24 +46,26 @@ for epochs in range(10):
     print("time:",game.time)
     if(game.numberOfPiecesP1>game.numberOfPiecesP2):
       MM = game.numberOfPiecesP1
-      P1P = 1 + 0.000001
-      P2P = game.numberOfPiecesP1/game.numberOfPiecesP2+0.000001
+      P1P = 1 - 0.000001
+      P2P = game.numberOfPiecesP1/game.numberOfPiecesP2-0.000001
     else:
       MM = game.numberOfPiecesP2
-      P2P = 1 + 0.000001
-      P1P = game.numberOfPiecesP2/game.numberOfPiecesP1+0.000001
+      P2P = 1 - 0.000001
+      P1P = game.numberOfPiecesP2/game.numberOfPiecesP1-0.000001
     print('MM:',MM,'P1P:',P1P, 'P2P:', P2P)
     P1counter = 0
     P1PieceNumber = 0
     P2counter = 0
     P2PieceNumber = 0
     for k in range(MM):
-      if (P1counter>=k):
-        game.makeMove(game.pieceArrayP1[P1PieceNumber],1)
+      if (P1counter<=k):
+        while(game.makeMove(game.pieceArrayP1[P1PieceNumber],1)):
+          pass
         P1PieceNumber += 1
         P1counter += P1P
-      if (P2counter>=k):
-        game.makeMove(game.pieceArrayP2[P2PieceNumber],1)
+      if (P2counter<=k):
+        while(game.makeMove(game.pieceArrayP2[P2PieceNumber],1)):
+          pass
         P2PieceNumber += 1
         P2counter += P2P
     game.board.printBoardPosition()

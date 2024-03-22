@@ -45,7 +45,7 @@ class Piece(object):
         "next_movement_timestamp",
         "target_square",
         "attack_target",
-        "movement_per_period"
+        "movement_periodicity"
     )
 
     def __init__(self, symbol, color):
@@ -82,10 +82,11 @@ class Piece(object):
         self.posY = posY
 
     def setMoveParameter(self, epoch_duration,periods_per_epoch):
-        self.movement_per_period = epoch_duration*self.movement_range/periods_per_epoch + 0.0000001
+        self.movement_periodicity = epoch_duration/self.movement_range - 0.0000001
+        self.next_movement_timestamp = self.movement_periodicity - 0.0000001
 
     def updateNextMoveTimestamp(self):
-        self.next_movement_timestamp += self.movement_per_period + 0.0000001
+        self.next_movement_timestamp += self.movement_periodicity - 0.0000001
 
     def getNextMoveTimestamp(self) -> float:
         return(self.next_movement_timestamp)

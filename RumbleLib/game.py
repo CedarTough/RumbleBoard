@@ -115,12 +115,12 @@ class Game:
             self.pieceArrayP2[i].setPosition(PosX,PosY)
             self.board.placePiece(self.pieceArrayP2[i].symbol, PosX,PosY)
 
-    def makeMove(self,pieceA:pieces.Piece,movePiece:bool=1)-> list:
+    def makeMove(self,pieceA:pieces.Piece,movePiece:bool=1)-> bool:
         print("Evaluating", pieceA.symbol, " nextMoveAt", pieceA.getNextMoveTimestamp())
         # check on time for move
         if (pieceA.getNextMoveTimestamp()>self.time):
             print('No move for',pieceA.symbol)
-            return([])
+            return(0)
 
         if (pieceA.color == "white"):
             enemyPieces = self.pieceArrayP2
@@ -149,7 +149,7 @@ class Game:
                         targetSquare = [i,j]
             print('minDistance:',minDistance, ' enemy: ', enemyPieces[minEnemy].symbol,'target:', targetSquare)
         if (minEnemy==-1):
-            return([])
+            return(1)
         else:
             pieceA.setAttackTarget(minEnemy)
             pieceA.setTargetSquare(targetSquare)
@@ -167,11 +167,11 @@ class Game:
               elif (distArray[i][max(j-1,0)] == minDistance):
                  j = j-1
               else: # we should never get here
-                #self.board.printBoardDist(distArray)
+                self.board.printBoardDist(distArray)
                 assert (0)
             if movePiece:
                 print("moving ", pieceA.symbol, " to ", i,j)
                 self.board.clearPiece(pieceA.symbol,pieceA.posX,pieceA.posY)
                 self.board.placePiece(pieceA.symbol,i,j)
                 pieceA.setPosition(i,j)
-            return([i,j])
+            return(1)
