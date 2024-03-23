@@ -8,7 +8,7 @@ SYMBOLS = {
     "F": ["DrFertilizer", 6, 2, 3, 15],
     "G": ["GingerbreadMan", 7, 3, 1, 20],
     "GM": ["GMachina", 8, 1, 2, 25],
-    "K": ["CapeKid", 9, 2, 3, 30],
+    "K": ["CapeKid", 9, 2, 2, 30],
     "L": ["LostPrincess", 10, 3, 1, 25],
     "LC": ["LittleCake", 1, 1, 2, 20],
     "M": ["Magician", 2, 2, 3, 15],
