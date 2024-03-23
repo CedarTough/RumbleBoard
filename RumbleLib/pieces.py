@@ -1,5 +1,5 @@
 SYMBOLS = {
-    # symbol: fullname, movement_range,attack_range, attack_dammage, hit_points
+    # symbol: fullname, movement_range,attack_range, attack_damage, hit_points
     "B": ["BeeSwarm", 6, 1, 1, 30],
     "C": ["ChocolatePrince", 2, 2, 2, 25],
     "CB": ["CabbageMoth", 3, 3, 3, 20],
@@ -38,7 +38,7 @@ class Piece(object):
         "color",
         "movement_range",
         "attack_range",
-        "attack_dammage",
+        "attack_damage",
         "hit_points",
         "posX",
         "posY",
@@ -65,7 +65,7 @@ class Piece(object):
         self.fullname = toto[0]
         self.movement_range = toto[1]
         self.attack_range = toto[2]
-        self.attack_dammage = toto[3]
+        self.attack_damage = toto[3]
         self.hit_points = toto[4]
         self.posX = -1
         self.posY = -1
@@ -97,11 +97,21 @@ class Piece(object):
     def getAttackTarget(self)-> int:
         return(self.attack_target)
     
+    def receiveDamage(self, damage)-> int:
+        self.hit_points = max(0, self.hit_points - damage)
+        return(self.hit_points)
+    
     def setTargetSquare(self, target_square:list = None):
         self.target_square = target_square
     
     def getTargetSquare(self)-> list:
         return(self.target_square)
+    
+    def dead(self)-> bool:
+        if (self.hit_points == 0):
+            return(1)
+        else:
+            return(0)
 
     def __str__(self):
         return self.symbol.lower()
@@ -121,8 +131,8 @@ class Piece(object):
             self.movement_range,
             "\tAttackRange:",
             self.attack_range,
-            "\tAttackDammage:",
-            self.attack_dammage,
+            "\tAttackDamage:",
+            self.attack_damage,
             "\tHP:",
             self.hit_points
         )

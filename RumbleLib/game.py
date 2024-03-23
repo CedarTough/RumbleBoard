@@ -149,6 +149,7 @@ class Game:
                         targetSquare = [i,j]
             print('minDistance:',minDistance, ' enemy: ', enemyPieces[minEnemy].symbol,'target:', targetSquare)
         if (minEnemy==-1):
+            # we should never get here unless piece is blocked out
             return(1)
         else:
             pieceA.setAttackTarget(minEnemy)
@@ -157,16 +158,18 @@ class Game:
             i = targetSquare[0]
             j = targetSquare[1]
             while (minDistance>1):
+              print("i,j=",i,j, "\tMinDistance:",minDistance)
               minDistance -=1 
               if (distArray[max(i-1,0)][j] == minDistance):
-                i = i-1
+                 i = i-1
               elif ( distArray[min(i+1,self.lenX-1)][j] == minDistance):
                  i = i+1
               elif (distArray[i][min(j+1,self.lenY-1)] == minDistance):
-                 j= i+1
+                 j = j+1
               elif (distArray[i][max(j-1,0)] == minDistance):
                  j = j-1
-              else: # we should never get here
+              else: # we should never get here unless piece is blocked out
+                print("i,j=",i,j, "\tMinDistance:",minDistance)
                 self.board.printBoardDist(distArray)
                 assert (0)
             if movePiece:
@@ -175,3 +178,21 @@ class Game:
                 self.board.placePiece(pieceA.symbol,i,j)
                 pieceA.setPosition(i,j)
             return(1)
+        
+    def attack(self,pieceA:pieces.Piece)-> bool:
+        print("Attack by ", pieceA.symbol, " against", pieceA.getAttackTarget())
+        
+        if (pieceA.getAttackTarget()==-1):
+            return(0)
+
+        if (pieceA.color == "white"):
+            enemyPiece = self.pieceArrayP2[pieceA.getAttackTarget()]
+        else:
+            enemyPiece = self.pieceArrayP1[pieceA.getAttackTarget()]
+
+        # Determine if enemy piece is reachable from piece A
+        attackArray = self.board.determine_attack_dist(enemyPiece.posX, enemyPiece.posY, pieceA.attack_range)
+        if ((attackArray[pieceA.posX][pieceA.posY]<1000) and (enemyPiece.hit_points>0)):
+          return(1)
+        else:
+          return(0)

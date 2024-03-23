@@ -70,3 +70,60 @@ for epochs in range(10):
         P2counter += P2P
     game.board.printBoardPosition()
     time.sleep(game.period_duration)
+
+  #attack every epoch
+  P1counter = 0
+  P1PieceNumber = 0
+  P2counter = 0
+  P2PieceNumber = 0
+  for k in range(MM):
+    if (P1counter<=k):
+      if (game.attack(game.pieceArrayP1[P1PieceNumber])):
+        piece1 = game.pieceArrayP1[P1PieceNumber]
+        piece2 = game.pieceArrayP2[piece1.getAttackTarget()]
+        #animate attack
+        dummy1 = piece2.hit_points
+        dummy2 = piece2.receiveDamage(piece1.attack_damage)
+        game.board.BoardPosition[piece1.posX][piece1.posY] = '#'
+        game.board.printBoardPosition()  
+        time.sleep(0.1)
+        game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy1)
+        game.board.printBoardPosition()  
+        time.sleep(0.1)
+        game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy2)
+        game.board.printBoardPosition()  
+        time.sleep(0.1)
+        game.board.BoardPosition[piece1.posX][piece1.posY] = piece1.symbol
+        game.board.BoardPosition[piece2.posX][piece2.posY] = piece2.symbol
+      P1PieceNumber += 1
+      P1counter += P1P
+    if (P2counter<=k):
+      if (game.attack(game.pieceArrayP2[P2PieceNumber])):
+        piece1 = game.pieceArrayP2[P2PieceNumber]
+        piece2 = game.pieceArrayP1[piece1.getAttackTarget()]
+        #animate attack
+        dummy1 = piece2.hit_points
+        dummy2 = piece2.receiveDamage(piece1.attack_damage)
+        game.board.BoardPosition[piece1.posX][piece1.posY] = '#'
+        game.board.printBoardPosition()  
+        time.sleep(0.1)
+        game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy1)
+        game.board.printBoardPosition()  
+        time.sleep(0.1)
+        game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy2)
+        game.board.printBoardPosition()  
+        time.sleep(0.1)
+        game.board.BoardPosition[piece1.posX][piece1.posY] = piece1.symbol
+        game.board.BoardPosition[piece2.posX][piece2.posY] = piece2.symbol
+      P2PieceNumber += 1
+      P2counter += P2P
+  for i in range(game.numberOfPiecesP1):
+    if (game.pieceArrayP1[i].dead()):
+      game.board.BoardPosition[game.pieceArrayP1[i].posX][game.pieceArrayP1[i].posY] = 0
+      game.numberOfPiecesP1.pop(i)
+      game.numberOfPiecesP1 -= 1
+  for i in range(game.numberOfPiecesP2):
+     if (game.pieceArrayP2[i].dead()):
+      game.board.BoardPosition[game.pieceArrayP2[i].posX][game.pieceArrayP2[i].posY] = 0
+      game.numberOfPiecesP2.pop(i)
+      game.numberOfPiecesP2 -= 1   
