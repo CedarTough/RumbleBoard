@@ -197,6 +197,7 @@ class Board:
         return board_dist
 
     def printBoardPosition(self):
+        print("\n")
         for j in range(self.lenY - 1, -1, -1):
             strl = ""
             for i in range(self.lenX):

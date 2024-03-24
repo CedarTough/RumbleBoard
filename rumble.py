@@ -86,15 +86,16 @@ for epochs in range(10):
         dummy2 = piece2.receiveDamage(piece1.attack_damage)
         game.board.BoardPosition[piece1.posX][piece1.posY] = '#'
         game.board.printBoardPosition()  
-        time.sleep(0.1)
+        time.sleep(0.3)
         game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy1)
         game.board.printBoardPosition()  
-        time.sleep(0.1)
+        time.sleep(0.3)
         game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy2)
         game.board.printBoardPosition()  
-        time.sleep(0.1)
+        time.sleep(0.3)
         game.board.BoardPosition[piece1.posX][piece1.posY] = piece1.symbol
         game.board.BoardPosition[piece2.posX][piece2.posY] = piece2.symbol
+        game.board.printBoardPosition()  
       P1PieceNumber += 1
       P1counter += P1P
     if (P2counter<=k):
@@ -106,24 +107,29 @@ for epochs in range(10):
         dummy2 = piece2.receiveDamage(piece1.attack_damage)
         game.board.BoardPosition[piece1.posX][piece1.posY] = '#'
         game.board.printBoardPosition()  
-        time.sleep(0.1)
+        time.sleep(0.3)
         game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy1)
         game.board.printBoardPosition()  
-        time.sleep(0.1)
+        time.sleep(0.3)
         game.board.BoardPosition[piece2.posX][piece2.posY] = str(dummy2)
         game.board.printBoardPosition()  
-        time.sleep(0.1)
+        time.sleep(0.3)
         game.board.BoardPosition[piece1.posX][piece1.posY] = piece1.symbol
         game.board.BoardPosition[piece2.posX][piece2.posY] = piece2.symbol
+        game.board.printBoardPosition()  
       P2PieceNumber += 1
       P2counter += P2P
-  for i in range(game.numberOfPiecesP1):
+  for i in range(game.numberOfPiecesP1-1,-1,-1):
     if (game.pieceArrayP1[i].dead()):
       game.board.BoardPosition[game.pieceArrayP1[i].posX][game.pieceArrayP1[i].posY] = 0
-      game.numberOfPiecesP1.pop(i)
+      game.pieceArrayP1.pop(i)
       game.numberOfPiecesP1 -= 1
-  for i in range(game.numberOfPiecesP2):
+      game.board.printBoardPosition() 
+      assert(game.numberOfPiecesP1)
+  for i in range(game.numberOfPiecesP2-1,-1,-1):
      if (game.pieceArrayP2[i].dead()):
       game.board.BoardPosition[game.pieceArrayP2[i].posX][game.pieceArrayP2[i].posY] = 0
-      game.numberOfPiecesP2.pop(i)
-      game.numberOfPiecesP2 -= 1   
+      game.pieceArrayP2.pop(i)
+      game.numberOfPiecesP2 -= 1
+      game.board.printBoardPosition() 
+      assert(game.numberOfPiecesP2)
