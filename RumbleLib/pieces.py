@@ -112,7 +112,6 @@ class Piece(object):
             return(1)
         else:
             return(0)
-
     def __str__(self):
         return self.symbol.lower()
 
