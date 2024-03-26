@@ -40,7 +40,7 @@ game.randomInitialPlacement(3) #random placement in first 3 rows
 print("time:",game.time)
 game.board.printBoardPosition()
 
-for epochs in range(10):
+for epochs in range(20):
   for periods in range(game.periods_per_epoch):
     game.advanceTime()
     print("time:",game.time)
